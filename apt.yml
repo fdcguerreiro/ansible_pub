@@ -1,0 +1,12 @@
+- hosts: "*"
+  become: yes
+  tasks:
+    - name: APT - Update cache - step 1
+      apt:
+        update_cache: yes
+    - name: APT - Upgrade - step 2
+      apt:
+        upgrade: 'yes'
+    - name: APT - Cleaning - step 3
+      apt:
+        autoremove: yes
