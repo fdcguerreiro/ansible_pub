@@ -12,5 +12,7 @@
     - name: APT - Cleaning - step 3
       apt:
         autoremove: yes
-
+    - name: APT - Cleaning - step 4
+      apt:
+        autoclean: yes
     
