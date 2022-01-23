@@ -1,6 +1,6 @@
 - hosts: "*"
   become: yes
   tasks:
-    - name: APT - Install VIM- Nox
+    - name: APT - Install VIM-Nox
       apt:
         name: vim-nox
