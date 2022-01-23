@@ -1,0 +1,15 @@
+## --- Para que o Ansible possa "trabalhar" ele necessita de ter os endereços das máquinas de destino. Podem ser grupos de máquinas ou
+## máquinas apenas.
+
+##[GRUPO_DE_SERVIDORES]
+##server1
+##server2
+##	ou
+##IP_server1
+##IP_server2
+##FQDN_do_Server
+
+##Também podemos usar servidores/maquinas isoladamente 
+##IP_DO_SERVER
+##FQDN_DO_SERVER
+
