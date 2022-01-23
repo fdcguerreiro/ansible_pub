@@ -1,4 +1,6 @@
-- hosts: "*"
+---
+
+- hosts: all
   become: yes
   tasks:
     - name: APT - Update cache - step 1
@@ -10,3 +12,5 @@
     - name: APT - Cleaning - step 3
       apt:
         autoremove: yes
+
+    
