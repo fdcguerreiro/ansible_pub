@@ -1,7 +1,7 @@
 ---
 
 - hosts: all
-  become: yes
+  become: true
   tasks:
     - name: APT - Update cache - step 1
       apt:
