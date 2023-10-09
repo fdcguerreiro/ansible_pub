@@ -49,3 +49,4 @@ services:
 networks: 
   postgres-compose-network:
     driver: bridge
+    cenas: true
