@@ -3,11 +3,23 @@
 - hosts: all
   become: true
   tasks:
-  - name: install apache2 package
-    apt: 
-      name: apache2
+
+## Ubuntu  
+  - name: install apache2 & libapache2-mod-php packages
+    apt:
+      update_cache: yes 
+      name: 
+        - apache2
+        - libapache2-mod-php
       state: latest
-  - name: install apache2 php support
-    apt: 
-      name: libapache2-mod-php
-      state: latest 
+    when: ansible_distribution in ["Debian", "Ubuntu"]
+
+##CentOS
+  - name: Install apache & php packages for CentOS
+    dnf:
+      update_cache: yes 
+      name:
+        - httpd
+        - php
+      state: latest
+    when: ansible_distribution == "CentOS"

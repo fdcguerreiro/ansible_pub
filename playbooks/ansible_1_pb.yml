@@ -1,0 +1,54 @@
+---
+- hosts: webservers
+  become: true
+  become_method: sudo
+  vars:
+    path: /etc/apache2/ports.conf
+    desired_port: 8080
+
+  tasks:
+    - name: "Update and upgrade packages"
+      apt:
+        update_cache: true
+        upgrade: dist
+        force_apt_get: true
+    - name: "Install Apache server"
+      apt:
+        name: apache2
+        state: latest
+    - name: "... a little house keeping on APT"
+      apt:
+        autoremove: true
+        autoclean: true
+    - name: "Create document root"
+      file:
+        path: "/var/www/html"
+        state: directory
+        owner: "www-data"
+        mode: 0755
+    - name: apache2 listen on port {{ desired_port }}
+      lineinfile: dest={{ path }} regexp="^Listen 80" line="Listen {{ desired_port }}" state=present
+      notify:
+        - restart apache2
+    - name: Apache2 virtualhost on port {{ desired_port }}
+      lineinfile: dest=/etc/apache2/sites-available/000-default.conf regexp="^<VirtualHost \*:80>" line="<VirtualHost *:{{ desired_port }}>" state=present
+      notify:
+        - restart apache2
+  handlers:
+    - name: restart apache2
+      service: name=apache2 state=restarted
+
+- hosts: unifi
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: "Update and upgrade"
+      apt:
+        update_cache: true
+        upgrade: dist
+        force_apt_get: true
+    - name: "... a little house keeping on APT"
+      apt:
+        autoremove: true
+        autoclean: true
